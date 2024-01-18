@@ -1,4 +1,4 @@
-#!/usr/bin/node
+// Create a multi languages by using an array of string and a loop
 for (const line of ['C is fun', 'Python is cool', 'JavaScript is amazing']) {
     console.log(line);
   }
