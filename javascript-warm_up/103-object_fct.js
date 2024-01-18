@@ -18,4 +18,3 @@ const myObject = {
   
   myObject.incr();
   console.log(myObject);
-  
