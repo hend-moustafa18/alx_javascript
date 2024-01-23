@@ -1,6 +1,23 @@
-#!/usr/bin/node
 const request = require('request');
-let url = 'https://swapi-api.alx-tools.com/api/films/:id' + process.argv[2];
-request(url, function (error, response, body) {
-  console.log(error || JSON.parse(body).title);
+
+const movieID = process.argv[2];
+
+if (!movieID) {
+    console.error('Please provide a movie ID as the first argument.');
+    process.exit(1);
+}
+
+const url = `https://swapi-api.alx-tools.com/api/films/${movieID}`;
+
+request(url, (error, response, body) => {
+    if (error) {
+        console.error('Error:', error);
+    } else {
+        try {
+            const movieData = JSON.parse(body);
+            console.log(movieData.title);
+        } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+        }
+    }
 });
