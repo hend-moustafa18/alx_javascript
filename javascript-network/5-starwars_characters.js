@@ -1,20 +1,38 @@
-#!/usr/bin/node
 const request = require('request');
-const url = 'https://swapi.co/api/films/' + process.argv[2];
-request(url, function (error, response, body) {
-  if (!error) {
-    let characters = JSON.parse(body).characters;
-    printCharacters(characters, 0);
-  }
-});
 
-function printCharacters (characters, index) {
-  request(characters[index], function (error, response, body) {
-    if (!error) {
-      console.log(JSON.parse(body).name);
-      if (index + 1 < characters.length) {
-        printCharacters(characters, index + 1);
-      }
-    }
-  });
+const movieID = process.argv[2];
+
+if (!movieID) {
+    console.error('Please provide a movie ID as the first argument.');
+    process.exit(1);
 }
+
+const url = `https://swapi-api.alx-tools.com/api/films/${movieID}`;
+
+request(url, (error, response, body) => {
+    if (error) {
+        console.error('Error:', error);
+    } else {
+        try {
+            const movieData = JSON.parse(body);
+            const characters = movieData.characters;
+
+            if (characters && characters.length > 0) {
+                characters.forEach((characterURL) => {
+                    request(characterURL, (characterError, characterResponse, characterBody) => {
+                        if (!characterError) {
+                            const characterData = JSON.parse(characterBody);
+                            console.log(characterData.name);
+                        } else {
+                            console.error('Error fetching character:', characterError);
+                        }
+                    });
+                });
+            } else {
+                console.log('No characters found for the given movie ID.');
+            }
+        } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+        }
+    }
+});
