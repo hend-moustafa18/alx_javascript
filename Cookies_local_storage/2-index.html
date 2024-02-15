@@ -41,22 +41,38 @@
             firstname.value = '';
             email.value = '';
         }
-        
+
         
         
         function showCookies() {
-            // grap the cookies with ; split the two cookies
-            const cookies = document.cookie.split('; ')
-            //grap the div element to add p element inside it
-            const addPara = document.getElementById('cookie');
-            //create a DOM element p
-            const p = document.createElement('p');
-            //set the inner html with Cookies: and the value of the cookie
-            p.innerText = 'Cookies: ' + cookies ;
-            //append the paragraph at the bottom of the page
-            addPara.appendChild(p);
+            // getting cookies in the variables 
+             let cemail = getCookie('email');
+             let cfirstname = getCookie('firstname');
+             //grap the div element to add p element inside it
+             let addPara = document.getElementById('cookie');
+             //create a DOM element p
+             let p = document.createElement('p');
+            
+             //set the inner html with Email: EMAIL - Firstname: FIRSTNAME
+             //`Email: ${cemail} - Firstname: ${cfirstname}`
+             p.innerText = 'Email: ' + cemail + '- Firstname: ' + cfirstname  ;
+             //append the paragraph at the bottom of the page
+             addPara.appendChild(p);
             
         }
+
+        //Add function getCookie
+        function getCookie(name) {
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split("=");
+            if (cookie[0] === name) {
+                return cookie[1];
+             }
+        }
+        return " ";
+      }
+      
     </script>
 </body>
 </html>

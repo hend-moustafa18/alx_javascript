@@ -8,47 +8,45 @@
 </head>
 <body>
     <h1>Log in to the website</h1>
-    <!-- Add two text inputs, with the id firstname and email -->
+    <!--Add two text inputs, with the id firstname and email-->
     <input type="text" id="firstname" placeholder="Firstname">
     <input type="text" id="email"  placeholder="Email">
-    <!-- Add one button with the text “Log me in” that will call the function setCookies -->
+    <!--Add one button with the text “Log me in” that will call the function setCookies-->
     <button onclick="setCookies()">Log me in</button>
     <div id="cookie"></div>
-    <!-- Add one button with the text “Show the cookies” that will call the function showCookies -->
+    <!--Add one button with the text “Show the cookies” that will call the function showCookies-->
     <button onclick="showCookies()">Show the cookies</button>
 
+
     <script>
-        // Grab the input type text for firstname and email
+        //grab the input type text for firstname and email
         const firstname = document.getElementById('firstname');
         const email = document.getElementById('email');
-
-        // Function setCookies that should set the cookie firstname, email
+        //Function setCookies that should set the cookie firstname, email
         function setCookies(){
-            document.cookie = 'firstname=' + firstname.value ;
-            document.cookie = 'email=' + email.value;
 
-            // Reset the value to the initial value defined in placeholder
+            document.cookie = 'firstname = ' + firstname.value ;
+            document.cookie = 'email = ' + email.value;
+
+            //reset the value to initial value defined in placeholder
             firstname.value = '';
             email.value = '';
         }
-
+        
+        
+        
         function showCookies() {
-            // Grab the cookies with ; split the two cookies
-            const cookies = document.cookie.split('; ');
-            
-            // Grab the div element to add p element inside it
+            // grap the cookies with ; split the two cookies
+            const cookies = document.cookie.split('; ')
+            //grap the div element to add p element inside it
             const addPara = document.getElementById('cookie');
-
-            // Clear previous content
-            addPara.innerHTML = '';
-
-            // Create a DOM element p for each cookie
-            cookies.forEach(cookie => {
-                const p = document.createElement('p');
-                p.innerText = 'Cookies: ' + cookie;
-                // Append each paragraph at the bottom of the div
-                addPara.appendChild(p);
-            });
+            //create a DOM element p
+            const p = document.createElement('p');
+            //set the inner html with Cookies: and the value of the cookie
+            p.innerText = 'Cookies: ' + cookies ;
+            //append the paragraph at the bottom of the page
+            addPara.appendChild(p);
+            
         }
     </script>
 </body>
